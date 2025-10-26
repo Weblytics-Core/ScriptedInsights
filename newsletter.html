@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9263011851673541"
+     crossorigin="anonymous"></script>
+  <meta name="google-adsense-account" content="ca-pub-9263011851673541">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Subscribe to Newsletter - ScriptedInsights</title>
+  <meta name="description" content="Subscribe to our newsletter for the latest blog posts, stories, and updates from ScriptedInsights.">
+  <meta name="keywords" content="newsletter, subscribe, blog, updates, stories">
+  <meta name="author" content="Subha">
+
+  <!-- Favicon & Fonts -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css">
+  <!-- EmailJS SDK -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  
+  <!-- Configuration -->
+  <style>
+    :root {
+      --primary: #6366f1;
+      --primary-light: #818cf8;
+      --primary-dark: #4f46e5;
+      --secondary: #10b981;
+      --dark: #0f172a;
+      --dark-light: #1e293b;
+      --light: #f8fafc;
+      --gray: #94a3b8;
+      --success: #10b981;
+      --error: #ef4444;
+      --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    html {
+      font-size: 14px;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+      color: var(--light);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* Header Styles */
+    header {
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(10px);
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header-left h1 a {
+      color: var(--light);
+      text-decoration: none;
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, var(--primary), var(--primary-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    /* Newsletter Container */
+    .newsletter-container {
+      max-width: 500px;
+      margin: 2rem auto;
+      padding: 2rem;
+      min-height: calc(100vh - 200px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .newsletter-card {
+      background: rgba(15, 23, 42, 0.9);
+      backdrop-filter: blur(10px);
+      border-radius: 1.5rem;
+      padding: 2.5rem;
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.36);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .newsletter-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+
+    .newsletter-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      z-index: 1;
+    }
+
+    .newsletter-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .newsletter-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #f8fafc;
+      margin-bottom: 0.75rem;
+      background: linear-gradient(135deg, #818cf8, #4f46e5);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .newsletter-subtitle {
+      font-size: 1.2rem;
+      color: #a0a0a0;
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+
+    .newsletter-form {
+      margin-bottom: 2rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+      text-align: left;
+    }
+
+    .form-label {
+      display: block;
+      color: var(--gray);
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+      transition: var(--transition);
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 0.875rem 1.25rem;
+      background: rgba(30, 41, 59, 0.8);
+      border: 2px solid rgba(99, 102, 241, 0.3);
+      border-radius: 0.75rem;
+      color: #f8fafc;
+      font-size: 1rem;
+      transition: var(--transition);
+      box-sizing: border-box;
+      font-family: inherit;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .form-input::placeholder {
+      color: var(--gray);
+      opacity: 0.7;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: #4da6ff;
+      box-shadow: 0 0 0 3px rgba(77, 166, 255, 0.1);
+      background: #2a2a2a;
+    }
+
+    .form-input::placeholder {
+      color: #888;
+    }
+
+    .subscribe-btn {
+      width: 100%;
+      padding: 1rem 2rem;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      border: none;
+      border-radius: 0.75rem;
+      color: white;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    .subscribe-btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px -5px rgba(79, 70, 229, 0.3);
+      background: linear-gradient(135deg, var(--primary-light), var(--primary));
+    }
+
+    .subscribe-btn:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    .subscribe-btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+
+    .subscribe-btn:active {
+      transform: translateY(0);
+    }
+
+    .subscribe-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .newsletter-benefits {
+      text-align: left;
+      margin-top: 2rem;
+    }
+
+    .benefits-title {
+      color: #f0f0f0;
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .benefits-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .benefits-list li {
+      color: #a0a0a0;
+      margin-bottom: 0.8rem;
+      padding-left: 1.5rem;
+      position: relative;
+      line-height: 1.5;
+    }
+
+    .benefits-list li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: #00d4aa;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    .newsletter-footer {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid #404040;
+      color: #666;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .success-message {
+      display: none;
+      background: rgba(0, 212, 170, 0.1);
+      border: 1px solid #00d4aa;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      color: #00d4aa;
+      text-align: center;
+    }
+
+    .error-message {
+      display: none;
+      background: rgba(255, 107, 107, 0.1);
+      border: 1px solid #ff6b6b;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      color: #ff6b6b;
+      text-align: center;
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+      .newsletter-container {
+        padding: 1rem;
+      }
+
+      .newsletter-card {
+        padding: 2rem;
+      }
+
+      .newsletter-title {
+        font-size: 2rem;
+      }
+
+      .newsletter-subtitle {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <div class="header-left">
+        <a href="index.html" style="text-decoration: none; color: inherit; display: block; width: 100%; height: 100%;"><h1>ScriptedInsights</h1></a>
+      </div>
+      <div class="header-right">
+        <div class="search-container">
+          <input type="text" id="searchInput" placeholder="Search posts..." autocomplete="off" spellcheck="false">
+          <div id="searchResults" style="display: none;"></div>
+        </div>
+        <a href="newsletter.html" class="newsletter-link">📧 Newsletter</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="newsletter-container">
+    <div class="newsletter-card">
+      <div class="newsletter-content">
+        <h1 class="newsletter-title">Stay Updated</h1>
+        <p class="newsletter-subtitle">
+          Subscribe to our newsletter and never miss a new post. Get the latest articles, 
+          insights, and updates delivered directly to your inbox.
+        </p>
+
+        <div id="successMessage" class="success-message">
+          <strong>🎉 Success!</strong> You've been subscribed to our newsletter. Check your email for confirmation.
+        </div>
+
+        <div id="errorMessage" class="error-message">
+          <strong>❌ Error!</strong> Something went wrong. Please try again later.
+        </div>
+        <!-- Newsletter Subscription Form with Formspree -->
+        <form id="newsletterForm" class="newsletter-form" action="https://formspree.io/f/xrbogzkv" method="POST">
+          <!-- Formspree Hidden Fields -->
+          <input type="hidden" name="_subject" value="New Newsletter Subscription">
+          <input type="hidden" name="_next" value="#">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="text" name="_gotcha" style="display:none">
+          <div class="form-group">
+            <label for="email" class="form-label">Email Address *</label>
+            <input 
+              type="email" 
+              id="email" 
+              name="email" 
+              class="form-input" 
+              placeholder="Enter your email address"
+              required
+            >
+          </div>
+          
+          <div class="form-group">
+            <label for="name" class="form-label">Name (Optional)</label>
+            <input 
+              type="text" 
+              id="name" 
+              name="name" 
+              class="form-input" 
+              placeholder="Enter your name"
+            >
+          </div>
+
+          <!-- Hidden field for form identification -->
+          <input type="hidden" name="_subject" value="Newsletter Subscription">
+          <input type="hidden" name="_next" value="" id="redirectUrl">
+          <input type="hidden" name="_replyto" value="">
+          <input type="hidden" name="_cc" value="">
+
+          <button type="submit" class="subscribe-btn" id="subscribeBtn">
+            <span id="btnText">Subscribe to Newsletter</span>
+            <span id="btnLoading" style="display: none;">Subscribing...</span>
+          </button>
+        </form>
+
+        <div class="newsletter-benefits">
+          <h3 class="benefits-title">What you'll get:</h3>
+          <ul class="benefits-list">
+            <li>Weekly digest of new blog posts</li>
+            <li>Exclusive content and insights</li>
+            <li>Early access to new features</li>
+            <li>No spam, unsubscribe anytime</li>
+            <li>Curated reading recommendations</li>
+          </ul>
+        </div>
+
+        <div class="newsletter-footer">
+          <p>
+            By subscribing, you agree to receive our newsletter. We respect your privacy 
+            and will never share your email address with third parties. You can unsubscribe 
+            at any time by clicking the link in our emails.
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="search-fix.js"></script>
+  <script src="script.js"></script>
+  <script src="tilt-effect.js"></script>
+  <script src="modern-ui.js"></script>
+  
+  <script>
+    // Newsletter subscription functionality for GitHub Pages
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('newsletterForm');
+      const emailInput = document.getElementById('email');
+      const nameInput = document.getElementById('name');
+      const subscribeBtn = document.getElementById('subscribeBtn');
+      const btnText = document.getElementById('btnText');
+      const btnLoading = document.getElementById('btnLoading');
+      const successMessage = document.getElementById('successMessage');
+      const errorMessage = document.getElementById('errorMessage');
+
+      // Set form action and redirect URL based on configuration
+      if (NEWSLETTER_CONFIG.FORMPREE.ENABLED && NEWSLETTER_CONFIG.FORMPREE.FORM_ID !== 'YOUR_FORM_ID') {
+        form.action = `https://formspree.io/f/${NEWSLETTER_CONFIG.FORMPREE.FORM_ID}`;
+        document.getElementById('redirectUrl').value = `${NEWSLETTER_CONFIG.SETTINGS.SITE_URL}/newsletter.html?subscribed=true`;
+      } else if (NEWSLETTER_CONFIG.GOOGLE_FORMS.ENABLED && NEWSLETTER_CONFIG.GOOGLE_FORMS.FORM_URL !== 'https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse') {
+        form.action = NEWSLETTER_CONFIG.GOOGLE_FORMS.FORM_URL;
+        document.getElementById('redirectUrl').value = `${NEWSLETTER_CONFIG.SETTINGS.SITE_URL}/newsletter.html?subscribed=true`;
+      }
+
+      // Form validation
+      function validateEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+      }
+
+      // Show success message
+      function showSuccess() {
+        successMessage.style.display = 'block';
+        errorMessage.style.display = 'none';
+        form.style.display = 'none';
+        setTimeout(() => {
+          successMessage.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      }
+
+      // Show error message
+      function showError(message) {
+        errorMessage.innerHTML = `<strong>❌ Error!</strong> ${message}`;
+        errorMessage.style.display = 'block';
+        successMessage.style.display = 'none';
+        setTimeout(() => {
+          errorMessage.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      }
+
+      // Hide messages
+      function hideMessages() {
+        successMessage.style.display = 'none';
+        errorMessage.style.display = 'none';
+      }
+
+      // Set loading state
+      function setLoading(loading) {
+        subscribeBtn.disabled = loading;
+        if (loading) {
+          btnText.style.display = 'none';
+          btnLoading.style.display = 'inline';
+        } else {
+          btnText.style.display = 'inline';
+          btnLoading.style.display = 'none';
+        }
+      }
+
+      // Store subscription in localStorage
+      function storeSubscription(email, name) {
+        const subscriptions = JSON.parse(localStorage.getItem('newsletterSubscriptions') || '[]');
+        const existingSubscription = subscriptions.find(sub => sub.email === email);
+        
+        if (existingSubscription) {
+          return false; // Already subscribed
+        }
+
+        const newSubscription = {
+          email: email,
+          name: name,
+          subscribedAt: new Date().toISOString(),
+          id: Date.now().toString(),
+          source: 'newsletter-form'
+        };
+
+        subscriptions.push(newSubscription);
+        localStorage.setItem('newsletterSubscriptions', JSON.stringify(subscriptions));
+        return true;
+      }
+
+      // Send email using EmailJS (optional)
+      async function sendWelcomeEmail(email, name) {
+        if (!NEWSLETTER_CONFIG.EMAILJS.ENABLED) {
+          return false;
+        }
+
+        try {
+          // Initialize EmailJS with your service ID
+          emailjs.init(NEWSLETTER_CONFIG.EMAILJS.SERVICE_ID);
+          
+          const templateParams = {
+            to_email: email,
+            to_name: name || 'there',
+            from_name: 'ScriptedInsights Team',
+            message: `Welcome to our newsletter! We're excited to have you as part of our community.`
+          };
+
+          // Send email using EmailJS
+          await emailjs.send(NEWSLETTER_CONFIG.EMAILJS.SERVICE_ID, NEWSLETTER_CONFIG.EMAILJS.TEMPLATE_ID, templateParams);
+          return true;
+        } catch (error) {
+          console.error('EmailJS error:', error);
+          return false;
+        }
+      }
+
+      // Handle form submission
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const email = emailInput.value.trim();
+        const name = nameInput.value.trim();
+
+        // Validate email
+        if (!email) {
+          showError('Please enter your email address.');
+          return;
+        }
+
+        if (!validateEmail(email)) {
+          showError('Please enter a valid email address.');
+          return;
+        }
+
+        // Hide previous messages
+        hideMessages();
+
+        // Set loading state
+        setLoading(true);
+
+        try {
+          // Store in localStorage
+          storeSubscription(email, name);
+          
+          // Submit the form to Formspree
+          const formData = new FormData(form);
+          const response = await fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+              'Accept': 'application/json'
+            }
+          });
+
+          if (response.ok) {
+            showSuccess();
+            form.reset();
+          } else {
+            throw new Error('Form submission failed');
+          }
+
+        } catch (error) {
+          console.error('Subscription error:', error);
+          showError('Failed to subscribe. Please try again later.');
+        } finally {
+          setLoading(false);
+        }
+      });
+
+      // Real-time email validation
+      emailInput.addEventListener('blur', function() {
+        const email = this.value.trim();
+        if (email && !validateEmail(email)) {
+          this.style.borderColor = '#ff6b6b';
+        } else {
+          this.style.borderColor = '#404040';
+        }
+      });
+
+      // Clear validation on input
+      emailInput.addEventListener('input', function() {
+        this.style.borderColor = '#404040';
+        hideMessages();
+      });
+
+      // Check if coming from successful form submission
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('subscribed') === 'true') {
+        showSuccess();
+      }
+    });
+  </script>
+ <!-- Modern Footer -->
+    <footer class="modern-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3 class="footer-brand">ScriptedInsights</h3>
+                <p class="footer-description">A modern blog platform to share your thoughts and connect with readers. Built with modern web technologies.</p>
+                <div class="social-links">
+                    <a href="https://twitter.com/subhadipdotcom/" class="social-link" aria-label="Twitter">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+                        </svg>
+                    </a>
+                    <a href="https://www.linkedin.com/in/subhadotcom/" class="social-link" aria-label="LinkedIn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                            <rect x="2" y="9" width="4" height="12"/>
+                            <circle cx="4" cy="4" r="2"/>
+                        </svg>
+                    </a>
+                    <a href="https://discord.gg/yBCkxWy7N4" class="social-link" aria-label="Discord">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h4 class="footer-title">Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="newsletter.html">Newsletter</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4 class="footer-title">Contact</h4>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                            <polyline points="22,6 12,13 2,6"/>
+                        </svg>
+                        <span><a href="mailto:scriptedinsights@subhadipghosh.co.in">Email Us</a></span>
+                    </div>
+                    <div class="contact-item">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        <span>Bangalore, India</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="footer-bottom-content">
+                <p class="copyright">© 2025 ScriptedInsights By Subhadip Ghosh. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                    <a href="terms-conditions.html">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
