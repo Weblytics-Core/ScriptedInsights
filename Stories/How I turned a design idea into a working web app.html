@@ -98,24 +98,7 @@
                     <li>Performance checks (fast load, small assets)</li>
                 </ul>
 
-                <h4>5. A tiny example</h4>
-                <p>To illustrate the structure I used, here’s a minimal example of the app shell that bootstraps features progressively:</p>
-                <pre><code>&lt;div id="app"&gt;
-  &lt;header&gt;&lt;h1&gt;My App&lt;/h1&gt;&lt;/header&gt;
-  &lt;main&gt;
-    &lt;section id="feature"&gt;Loading…&lt;/section&gt;
-  &lt;/main&gt;
-&lt;/div&gt;
-
-&lt;script&gt;
-document.addEventListener('DOMContentLoaded', () =&gt; {
-  const el = document.getElementById('feature');
-  // fetch or compute the feature gradually
-  el.textContent = 'Feature ready — click to try';
-});
-&lt;/script&gt;</code></pre>
-
-                <h4>6. Monitor and iterate post-launch</h4>
+                <h4>5. Monitor and iterate post-launch</h4>
                 <p>After launch I added basic analytics, error reporting, and a short feedback form. Real users revealed edge cases I hadn’t considered, which guided the next round of improvements.</p>
 
                 <h4>Lessons learned</h4>
